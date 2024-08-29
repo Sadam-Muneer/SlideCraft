@@ -32,7 +32,7 @@ const Intro = () => {
   return (
     <div className="flex flex-col min-h-screen bg-cover bg-center text-black p-4 sm:p-8">
       <div className="flex flex-col items-center justify-center flex-grow text-black bg-opacity-50 p-4 rounded-lg">
-        <div className="text-center max-w-4xl mb-12 py-10">
+        <div className="text-center mb-12 py-5">
           <motion.h1
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}

@@ -1,72 +1,123 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {
+  Navbar as MTNavbar,
+  Collapse,
+  Typography,
+  Button,
+  IconButton,
+} from "@material-tailwind/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { FaHome, FaInfoCircle, FaSlideshare, FaFileAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const NavbarWithMaterialDesign = () => {
+  const [openNav, setOpenNav] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  // Handle resize to close navbar on large screens
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 960) {
+        setOpenNav(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Close the menu when a link is clicked
+  const closeMenu = () => setOpenNav(false);
+
+  const navList = (
+    <div>
+      <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          <Link
+            to="/"
+            className="flex items-center text-white"
+            onClick={closeMenu}
+          >
+            <FaHome className="mr-2 text-white" /> Home
+          </Link>
+        </Typography>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          <Link
+            to="/intro"
+            className="flex items-center text-white"
+            onClick={closeMenu}
+          >
+            <FaInfoCircle className="mr-2 text-white" /> Introduction
+          </Link>
+        </Typography>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        >
+          <Link
+            to="/slides"
+            className="flex items-center text-white"
+            onClick={closeMenu}
+          >
+            <FaSlideshare className="mr-2 text-black" /> Slides
+          </Link>
+        </Typography>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal"
+        ></Typography>
+      </ul>
+    </div>
+  );
 
   return (
-    <div className="max-padd-container">
-      <nav className="fixed top-0 left-0 w-full bg-black text-white p-4 shadow-md z-50">
-        <div className="container mx-auto flex justify-center items-center">
-          <div className="flex justify-between w-full max-w-screen-lg">
-            <div className="text-xl font-bold">My Presentation</div>
-            <div className="md:hidden">
-              <button onClick={toggleMenu} className="text-white">
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d={
-                      isOpen
-                        ? "M6 18L18 6M6 6l12 12"
-                        : "M4 6h16M4 12h16M4 18h16"
-                    }
-                  ></path>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <ul
-            className={`md:flex space-x-6 ${
-              isOpen ? "block" : "hidden"
-            } md:block mt-4 md:mt-0`}
+    <div>
+      <MTNavbar className="z-10 h-max max-w-full bg-black rounded-full px-4 py-2 my-1 lg:px-8 lg:py-4 fixed top-0 ">
+        <div className="flex items-center justify-between text-blue-gray-900">
+          <Typography
+            as="a"
+            href="#"
+            className="mr-4 cursor-pointer py-1.5 font-medium text-white"
           >
-            <li>
-              <Link to="/" className="hover:text-gray-300">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/intro" className="hover:text-gray-300">
-                Introduction
-              </Link>
-            </li>
-            <li>
-              <Link to="/slides" className="hover:text-gray-300">
-                Slides
-              </Link>
-            </li>
-            <li>
-              <Link to="/project-report" className="hover:text-gray-300">
-                Project Report
-              </Link>
-            </li>
-          </ul>
+            My Presentation
+          </Typography>
+          <div className="mr-4 hidden lg:block">{navList}</div>
+          <Link
+            to="/project-report"
+            className="flex items-center text-white"
+            onClick={closeMenu}
+          >
+            <FaFileAlt className="mr-2 text-white" /> Project Report
+          </Link>
+          <IconButton
+            variant="text"
+            className="lg:hidden"
+            onClick={() => setOpenNav(!openNav)}
+          >
+            {openNav ? (
+              <XMarkIcon className="h-6 w-6" strokeWidth={2} />
+            ) : (
+              <Bars3Icon className="h-6 w-6" strokeWidth={2} />
+            )}
+          </IconButton>
         </div>
-      </nav>
+      </MTNavbar>
     </div>
   );
 };
 
-export default Navbar;
+export default NavbarWithMaterialDesign;
