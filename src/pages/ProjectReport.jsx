@@ -140,7 +140,7 @@ const ProjectReport = () => {
         </p>
         <button
           onClick={generatePdf}
-          className="bg-teal-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-teal-700 transition duration-300"
+          className="bg-black text-white px-6 py-3 rounded-lg "
         >
           Download Report
         </button>

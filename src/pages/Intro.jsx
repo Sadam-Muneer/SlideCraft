@@ -1,4 +1,3 @@
-// src/pages/Intro.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
@@ -28,11 +27,16 @@ const teacher = {
 
 const Intro = () => {
   const [activeTab, setActiveTab] = useState(null);
+  const [isSpinning, setIsSpinning] = useState(true);
 
   return (
-    <div className="flex flex-col min-h-screen bg-cover bg-center text-black p-4 sm:p-8">
-      <div className="flex flex-col items-center justify-center flex-grow text-black bg-opacity-50 p-4 rounded-lg">
-        <div className="text-center mb-12 py-5">
+    <div
+      className={`bg-gradient-to-r from-green-200 via-gray-700 to-gray-30 min-h-screen flex  justify-center text-black ${
+        isSpinning ? "animate-gradient" : ""
+      }`}
+    >
+      <div className="flex flex-col items-center py-24 text-black rounded-lg">
+        <div className="text-center py-5">
           <motion.h1
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -59,7 +63,7 @@ const Intro = () => {
                 onClick={() => setActiveTab("guide")}
                 className={`px-4 mx-3 ${
                   activeTab === "guide"
-                    ? "bg-gray-700 text-white "
+                    ? "bg-black text-white "
                     : "bg-white text-black border-2 border-gray-20"
                 } rounded-lg`}
               >
@@ -69,7 +73,7 @@ const Intro = () => {
                 onClick={() => setActiveTab("members")}
                 className={`py-2 px-4 ${
                   activeTab === "members"
-                    ? "bg-gray-700 text-white "
+                    ? "bg-black text-white"
                     : "bg-white text-black border-2 border-gray-20"
                 } rounded-lg`}
               >
